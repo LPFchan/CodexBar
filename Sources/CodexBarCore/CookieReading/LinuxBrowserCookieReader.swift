@@ -1,10 +1,6 @@
 #if os(Linux)
 import Foundation
-#if canImport(CSQLite)
 import CSQLite
-#else
-import SQLite3
-#endif
 
 public struct LinuxBrowserCookieReader {
     public struct CookieRecord: Equatable, Sendable {

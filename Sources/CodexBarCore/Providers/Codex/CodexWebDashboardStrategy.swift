@@ -605,17 +605,17 @@ private enum LinuxOpenAIWebFetchError: LocalizedError, Sendable {
     var errorDescription: String? {
         switch self {
         case .noCookiesFound:
-            "No ChatGPT/OpenAI browser cookies found."
+            return "No ChatGPT/OpenAI browser cookies found."
         case .noSessionCookie:
-            "No authenticated ChatGPT session cookie found."
+            return "No authenticated ChatGPT session cookie found."
         case .noUsageData:
-            "OpenAI web usage API did not return usage limits."
+            return "OpenAI web usage API did not return usage limits."
         case .loginRequired:
-            "OpenAI web access requires login."
+            return "OpenAI web access requires login."
         case let .wrongAccount(expected, actual):
-            "OpenAI web dashboard belonged to the wrong account (expected \(expected), got \(actual))."
+            return "OpenAI web dashboard belonged to the wrong account (expected \(expected), got \(actual))."
         case let .noMatchingAccount(details):
-            "No matching OpenAI web session found in browsers. \(details)"
+            return "No matching OpenAI web session found in browsers. \(details)"
         case let .serverError(status, body):
             if let body, !body.isEmpty {
                 return "OpenAI web usage API error \(status): \(body)"

@@ -26,14 +26,19 @@ let package = Package(
         sweetCookieKitDependency,
     ],
     targets: {
+        var coreDependencies: [Target.Dependency] = [
+            "CodexBarMacroSupport",
+            .product(name: "Logging", package: "swift-log"),
+            .product(name: "SweetCookieKit", package: "SweetCookieKit"),
+        ]
+        #if os(Linux)
+        coreDependencies.append("CSQLite")
+        #endif
+
         var targets: [Target] = [
             .target(
                 name: "CodexBarCore",
-                dependencies: [
-                    "CodexBarMacroSupport",
-                    .product(name: "Logging", package: "swift-log"),
-                    .product(name: "SweetCookieKit", package: "SweetCookieKit"),
-                ],
+                dependencies: coreDependencies,
                 swiftSettings: [
                     .enableUpcomingFeature("StrictConcurrency"),
                 ]),
@@ -63,11 +68,24 @@ let package = Package(
                 name: "CodexBarLinuxTests",
                 dependencies: ["CodexBarCore", "CodexBarCLI"],
                 path: "TestsLinux",
+                resources: [
+                    .copy("Fixtures"),
+                ],
                 swiftSettings: [
                     .enableUpcomingFeature("StrictConcurrency"),
                     .enableExperimentalFeature("SwiftTesting"),
                 ]),
         ]
+
+        #if os(Linux)
+        targets.append(.systemLibrary(
+            name: "CSQLite",
+            pkgConfig: "sqlite3",
+            providers: [
+                .apt(["libsqlite3-dev"]),
+                .brew(["sqlite"]),
+            ]))
+        #endif
 
         #if os(macOS)
         targets.append(contentsOf: [

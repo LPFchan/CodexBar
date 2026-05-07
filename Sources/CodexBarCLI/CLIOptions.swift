@@ -9,7 +9,7 @@ struct UsageOptions: CommanderParsable {
         #if os(macOS)
         "Data source: auto | web | cli | oauth | api (auto behavior is provider-specific)"
         #else
-        "Data source: auto | web | cli | oauth | api (web/auto are macOS only for web-capable providers)"
+        "Data source: auto | web | cli | oauth | api (Linux web support is provider-specific)"
         #endif
     }()
 

@@ -95,14 +95,14 @@ extension CodexBarCLI {
         }
 
         #if !os(macOS)
-        if let parsedSourceMode {
-            let requiresWeb = providerList.contains { selectedProvider in
-                Self.sourceModeRequiresWebSupport(parsedSourceMode, provider: selectedProvider)
+        if let parsedSourceMode, parsedSourceMode == .web {
+            let unsupportedWeb = providerList.contains { selectedProvider in
+                Self.sourceModeUnsupportedOnLinux(parsedSourceMode, provider: selectedProvider)
             }
-            if requiresWeb {
+            if unsupportedWeb {
                 Self.exit(
                     code: .failure,
-                    message: "Error: selected source requires web support and is only supported on macOS.",
+                    message: "Error: selected provider's web source is not supported on Linux.",
                     output: output,
                     kind: .runtime)
             }
@@ -251,7 +251,7 @@ extension CodexBarCLI {
             account: account)
 
         #if !os(macOS)
-        if Self.sourceModeRequiresWebSupport(effectiveSourceMode, provider: provider) {
+        if Self.sourceModeUnsupportedOnLinux(effectiveSourceMode, provider: provider) {
             return Self.webSourceUnsupportedOutput(
                 provider: provider,
                 account: account,
@@ -415,7 +415,7 @@ extension CodexBarCLI {
             domain: "CodexBarCLI",
             code: 1,
             userInfo: [NSLocalizedDescriptionKey:
-                "Error: selected source requires web support and is only supported on macOS."])
+                "Error: selected provider's web source is not supported on Linux."])
         output.exitCode = .failure
         if command.format == .json {
             output.payload.append(Self.makeProviderErrorPayload(
@@ -438,6 +438,25 @@ extension CodexBarCLI {
         case .auto:
             ProviderDescriptorRegistry.descriptor(for: provider).fetchPlan.sourceModes.contains(.web)
         case .cli, .oauth, .api:
+            false
+        }
+    }
+
+    static func sourceModeUnsupportedOnLinux(_ sourceMode: ProviderSourceMode, provider: UsageProvider) -> Bool {
+        #if os(macOS)
+        false
+        #else
+        sourceMode == .web &&
+            Self.sourceModeRequiresWebSupport(sourceMode, provider: provider) &&
+            !Self.providerSupportsLinuxWebSource(provider)
+        #endif
+    }
+
+    static func providerSupportsLinuxWebSource(_ provider: UsageProvider) -> Bool {
+        switch provider {
+        case .claude, .codex:
+            true
+        default:
             false
         }
     }

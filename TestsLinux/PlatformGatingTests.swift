@@ -4,43 +4,32 @@ import Testing
 @Suite
 struct PlatformGatingTests {
     @Test
-    func claudeWebFetcher_isNotSupportedOnLinux() async {
+    func claudeWebFetcher_parsesManualSessionKeyOnLinux() throws {
         #if os(Linux)
-        let error = await #expect(throws: ClaudeWebAPIFetcher.FetchError.self) {
-            _ = try await ClaudeWebAPIFetcher.fetchUsage()
-        }
-        let isExpectedError = error.map { thrown in
-            if case .notSupportedOnThisPlatform = thrown { return true }
-            return false
-        } ?? false
-        #expect(isExpectedError)
+        let info = try ClaudeWebAPIFetcher.sessionKeyInfo(cookieHeader: "sessionKey=sk-ant-test")
+        #expect(info.key == "sk-ant-test")
+        #expect(info.sourceLabel == "Manual")
         #else
         #expect(Bool(true))
         #endif
     }
 
     @Test
-    func claudeWebFetcher_hasSessionKey_isFalseOnLinux() {
-        #if os(Linux)
+    func claudeWebFetcher_hasSessionKeyChecksManualCookieHeader() {
         #expect(ClaudeWebAPIFetcher.hasSessionKey(cookieHeader: nil) == false)
-        #else
-        #expect(Bool(true))
-        #endif
+        #expect(ClaudeWebAPIFetcher.hasSessionKey(cookieHeader: "sessionKey=not-valid") == false)
+        #expect(ClaudeWebAPIFetcher.hasSessionKey(cookieHeader: "sessionKey=sk-ant-test") == true)
     }
 
     @Test
-    func claudeWebFetcher_sessionKeyInfo_throwsOnLinux() {
-        #if os(Linux)
+    func claudeWebFetcher_sessionKeyInfoThrowsWithoutCookie() {
         let error = #expect(throws: ClaudeWebAPIFetcher.FetchError.self) {
-            _ = try ClaudeWebAPIFetcher.sessionKeyInfo()
+            _ = try ClaudeWebAPIFetcher.sessionKeyInfo(cookieHeader: "other=value")
         }
         let isExpectedError = error.map { thrown in
-            if case .notSupportedOnThisPlatform = thrown { return true }
+            if case .noSessionKeyFound = thrown { return true }
             return false
         } ?? false
         #expect(isExpectedError)
-        #else
-        #expect(Bool(true))
-        #endif
     }
 }

@@ -62,7 +62,7 @@ public enum ClaudeWebAPIFetcher {
             case .invalidSessionKey:
                 "Invalid Claude session key format."
             case .notSupportedOnThisPlatform:
-                "Claude web fetching is only supported on macOS."
+                "Claude web fetching is not supported on this platform."
             case let .networkError(error):
                 "Network error: \(error.localizedDescription)"
             case .invalidResponse:
@@ -128,7 +128,9 @@ public enum ClaudeWebAPIFetcher {
 
     // MARK: - Public API
 
-    #if os(macOS)
+    public static func fetchUsage(logger: ((String) -> Void)? = nil) async throws -> WebUsageData {
+        try await self.fetchUsage(browserDetection: BrowserDetection(), logger: logger)
+    }
 
     /// Attempts to fetch Claude usage data using cookies extracted from browsers.
     /// Tries browser cookies using the standard import order.
@@ -331,6 +333,10 @@ public enum ClaudeWebAPIFetcher {
         try self.extractSessionKeyInfo(browserDetection: browserDetection, logger: logger)
     }
 
+    public static func sessionKeyInfo(logger: ((String) -> Void)? = nil) throws -> SessionKeyInfo {
+        try self.sessionKeyInfo(browserDetection: BrowserDetection(), logger: logger)
+    }
+
     public static func sessionKeyInfo(cookieHeader: String) throws -> SessionKeyInfo {
         let pairs = CookieHeaderNormalizer.pairs(from: cookieHeader)
         if let sessionKey = self.findSessionKey(in: pairs) {
@@ -344,6 +350,7 @@ public enum ClaudeWebAPIFetcher {
 
     // MARK: - Session Key Extraction
 
+    #if os(macOS)
     private static func extractSessionKeyInfo(
         browserDetection: BrowserDetection,
         logger: ((String) -> Void)? = nil) throws -> SessionKeyInfo
@@ -380,6 +387,31 @@ public enum ClaudeWebAPIFetcher {
 
         throw FetchError.noSessionKeyFound
     }
+    #else
+    private static func extractSessionKeyInfo(
+        browserDetection _: BrowserDetection,
+        logger: ((String) -> Void)? = nil) throws -> SessionKeyInfo
+    {
+        let log: (String) -> Void = { msg in logger?(msg) }
+        let reader = LinuxBrowserCookieReader()
+        let results = reader.cookies(
+            matchingDomains: ["claude.ai"],
+            names: ["sessionKey"],
+            logger: log)
+        for result in results {
+            if let sessionKey = findSessionKey(in: result.records.map({ record in
+                (name: record.name, value: record.value)
+            })) {
+                log("Found sessionKey in \(result.sourceLabel)")
+                return SessionKeyInfo(
+                    key: sessionKey,
+                    sourceLabel: result.sourceLabel,
+                    cookieCount: result.records.count)
+            }
+        }
+        throw FetchError.noSessionKeyFound
+    }
+    #endif
 
     private static func findSessionKey(in cookies: [(name: String, value: String)]) -> String? {
         for cookie in cookies where cookie.name == "sessionKey" {
@@ -845,66 +877,4 @@ public enum ClaudeWebAPIFetcher {
         walk(json, path: "")
         return results
     }
-
-    #else
-
-    public static func fetchUsage(logger: ((String) -> Void)? = nil) async throws -> WebUsageData {
-        throw FetchError.notSupportedOnThisPlatform
-    }
-
-    public static func fetchUsage(
-        browserDetection: BrowserDetection,
-        logger: ((String) -> Void)? = nil) async throws -> WebUsageData
-    {
-        _ = browserDetection
-        _ = logger
-        throw FetchError.notSupportedOnThisPlatform
-    }
-
-    public static func fetchUsage(
-        cookieHeader: String,
-        logger: ((String) -> Void)? = nil) async throws -> WebUsageData
-    {
-        _ = cookieHeader
-        _ = logger
-        throw FetchError.notSupportedOnThisPlatform
-    }
-
-    public static func fetchUsage(
-        using sessionKeyInfo: SessionKeyInfo,
-        logger: ((String) -> Void)? = nil) async throws -> WebUsageData
-    {
-        throw FetchError.notSupportedOnThisPlatform
-    }
-
-    public static func probeEndpoints(
-        _ endpoints: [String],
-        includePreview: Bool = false,
-        logger: ((String) -> Void)? = nil) async throws -> [ProbeResult]
-    {
-        throw FetchError.notSupportedOnThisPlatform
-    }
-
-    public static func hasSessionKey(browserDetection: BrowserDetection, logger: ((String) -> Void)? = nil) -> Bool {
-        _ = browserDetection
-        _ = logger
-        return false
-    }
-
-    public static func hasSessionKey(cookieHeader: String?) -> Bool {
-        guard let cookieHeader else { return false }
-        for pair in CookieHeaderNormalizer.pairs(from: cookieHeader) where pair.name == "sessionKey" {
-            let value = pair.value.trimmingCharacters(in: .whitespacesAndNewlines)
-            if value.hasPrefix("sk-ant-") {
-                return true
-            }
-        }
-        return false
-    }
-
-    public static func sessionKeyInfo(logger: ((String) -> Void)? = nil) throws -> SessionKeyInfo {
-        throw FetchError.notSupportedOnThisPlatform
-    }
-
-    #endif
 }

@@ -6,25 +6,225 @@
       <summary>Path to the codexbar CLI executable.</summary>
       <description>Leave empty to resolve the 'codexbar' CLI from $PATH.</description>
     </key>
-    <key name="default-provider" type="s">
-      <default>'codex'</default>
-      <summary>Provider shown by default in the top bar.</summary>
-      <description>Providers are detected from codexbar CLI output; set this with gsettings to prefer a provider id.</description>
+    <key name="refresh-frequency" type="s">
+      <default>'fiveMinutes'</default>
+      <summary>Refresh cadence.</summary>
+      <description>One of manual, oneMinute, twoMinutes, fiveMinutes, fifteenMinutes, thirtyMinutes.</description>
     </key>
     <key name="refresh-interval" type="u">
-      <default>120</default>
-      <summary>Seconds between refreshes.</summary>
-      <description>The extension polls the backend on this interval.</description>
+      <default>300</default>
+      <summary>Legacy refresh interval in seconds.</summary>
+      <description>Kept for migration from the earlier Linux extension skeleton.</description>
     </key>
-    <key name="show-percentage" type="b">
-      <default>true</default>
-      <summary>Whether to show the remaining percentage in the top bar.</summary>
-      <description>When disabled, only the icon remains visible in the panel.</description>
+    <key name="launch-at-login" type="b">
+      <default>false</default>
+      <summary>Start at login.</summary>
+      <description>Create a GNOME autostart entry that enables the extension on session startup.</description>
     </key>
-    <key name="keep-last-good-value" type="b">
+    <key name="debug-menu-enabled" type="b">
+      <default>false</default>
+      <summary>Show Debug settings.</summary>
+      <description>Controls visibility of the Debug preferences page.</description>
+    </key>
+    <key name="debug-file-logging-enabled" type="b">
+      <default>false</default>
+      <summary>File logging enabled.</summary>
+      <description>Mirrors upstream file logging preference.</description>
+    </key>
+    <key name="debug-log-level" type="s">
+      <default>'verbose'</default>
+      <summary>Debug log level.</summary>
+      <description>One of trace, verbose, debug, info, warning, error, critical.</description>
+    </key>
+    <key name="debug-loading-pattern" type="s">
+      <default>''</default>
+      <summary>Forced loading animation pattern.</summary>
+      <description>Empty means random/default. Otherwise one of knightRider, cylon, outsideIn, race, pulse, unbraid.</description>
+    </key>
+    <key name="debug-keep-cli-sessions-alive" type="b">
+      <default>false</default>
+      <summary>Keep CLI sessions alive.</summary>
+      <description>Debug toggle mirroring upstream CLI session keep-alive behavior.</description>
+    </key>
+    <key name="debug-injected-error" type="s">
+      <default>''</default>
+      <summary>Injected menu card error.</summary>
+      <description>Non-empty text is displayed as a fake backend error in the menu.</description>
+    </key>
+    <key name="status-checks-enabled" type="b">
       <default>true</default>
-      <summary>Keep the last successful value when refresh fails.</summary>
-      <description>If disabled, the panel clears its data whenever the backend errors.</description>
+      <summary>Check provider status.</summary>
+      <description>Poll provider status pages when the CLI surfaces status information.</description>
+    </key>
+    <key name="session-quota-notifications-enabled" type="b">
+      <default>true</default>
+      <summary>Session quota notifications.</summary>
+      <description>Notify when a session quota depletes or restores.</description>
+    </key>
+    <key name="usage-bars-show-used" type="b">
+      <default>false</default>
+      <summary>Show bars as used.</summary>
+      <description>When true, usage bars fill as consumed usage instead of remaining quota.</description>
+    </key>
+    <key name="reset-times-show-absolute" type="b">
+      <default>false</default>
+      <summary>Show reset times as clocks.</summary>
+      <description>Use absolute clock labels instead of countdown labels.</description>
+    </key>
+    <key name="menu-bar-shows-brand-icon-with-percent" type="b">
+      <default>false</default>
+      <summary>Show provider brand icon with percent.</summary>
+      <description>Replace critter bars with provider badge and display text.</description>
+    </key>
+    <key name="menu-bar-display-mode" type="s">
+      <default>'percent'</default>
+      <summary>Panel display mode.</summary>
+      <description>One of percent, pace, both.</description>
+    </key>
+    <key name="historical-tracking-enabled" type="b">
+      <default>false</default>
+      <summary>Historical tracking.</summary>
+      <description>Reserved for upstream-compatible historical pace tracking.</description>
+    </key>
+    <key name="show-all-token-accounts-in-menu" type="b">
+      <default>false</default>
+      <summary>Show all token accounts in menu.</summary>
+      <description>Reserve menu layout for all token accounts instead of compact switching.</description>
+    </key>
+    <key name="menu-bar-metric-preferences" type="a{ss}">
+      <default>@a{ss} {}</default>
+      <summary>Per-provider panel metric preferences.</summary>
+      <description>Provider id to automatic, primary, secondary, tertiary, extraUsage, or average.</description>
+    </key>
+    <key name="cost-usage-enabled" type="b">
+      <default>false</default>
+      <summary>Show cost usage.</summary>
+      <description>Show local token cost summaries when the CLI returns them.</description>
+    </key>
+    <key name="hide-personal-info" type="b">
+      <default>false</default>
+      <summary>Hide personal information.</summary>
+      <description>Redact account emails from the menu.</description>
+    </key>
+    <key name="random-blink-enabled" type="b">
+      <default>false</default>
+      <summary>Random blink enabled.</summary>
+      <description>Enable idle blink, wiggle, and tilt animation.</description>
+    </key>
+    <key name="confetti-on-weekly-limit-resets-enabled" type="b">
+      <default>false</default>
+      <summary>Weekly reset confetti.</summary>
+      <description>Reserved for upstream parity; GNOME port does not render Vortex confetti.</description>
+    </key>
+    <key name="menu-bar-shows-highest-usage" type="b">
+      <default>false</default>
+      <summary>Show highest usage provider.</summary>
+      <description>Use the provider closest to a rate limit for the merged panel icon.</description>
+    </key>
+    <key name="claude-web-extras-enabled" type="b">
+      <default>false</default>
+      <summary>Claude web extras enabled.</summary>
+      <description>Show optional Claude web details when provided by the CLI.</description>
+    </key>
+    <key name="claude-peak-hours-enabled" type="b">
+      <default>true</default>
+      <summary>Claude peak hours enabled.</summary>
+      <description>Show Claude peak-hour notes in the menu card.</description>
+    </key>
+    <key name="show-optional-credits-and-extra-usage" type="b">
+      <default>true</default>
+      <summary>Show optional credits and extra usage.</summary>
+      <description>Show Codex credits and Claude extra usage sections.</description>
+    </key>
+    <key name="open-ai-web-access-enabled" type="b">
+      <default>false</default>
+      <summary>OpenAI web access enabled.</summary>
+      <description>Allow OpenAI web usage output when returned by the CLI.</description>
+    </key>
+    <key name="open-ai-web-battery-saver-enabled" type="b">
+      <default>false</default>
+      <summary>OpenAI web battery saver enabled.</summary>
+      <description>Reserved for lighter OpenAI web refresh behavior.</description>
+    </key>
+    <key name="provider-storage-footprints-enabled" type="b">
+      <default>false</default>
+      <summary>Provider storage footprints enabled.</summary>
+      <description>Show provider storage facts when available.</description>
+    </key>
+    <key name="jetbrains-ide-base-path" type="s">
+      <default>''</default>
+      <summary>JetBrains IDE base path.</summary>
+      <description>Optional path used by JetBrains provider discovery.</description>
+    </key>
+    <key name="merge-icons" type="b">
+      <default>true</default>
+      <summary>Merge icons.</summary>
+      <description>Use one merged GNOME panel button.</description>
+    </key>
+    <key name="switcher-shows-icons" type="b">
+      <default>true</default>
+      <summary>Switcher shows icons.</summary>
+      <description>Show provider icon badges in switcher buttons.</description>
+    </key>
+    <key name="merged-menu-last-selected-was-overview" type="b">
+      <default>false</default>
+      <summary>Overview was last selected.</summary>
+      <description>Tracks whether the merged menu shows the Overview tab.</description>
+    </key>
+    <key name="merged-overview-selected-providers" type="as">
+      <default>[]</default>
+      <summary>Overview selected providers.</summary>
+      <description>Up to three provider ids shown in the Overview tab.</description>
+    </key>
+    <key name="selected-menu-provider" type="s">
+      <default>'codex'</default>
+      <summary>Selected menu provider.</summary>
+      <description>Provider id shown by default in the merged menu.</description>
+    </key>
+    <key name="default-provider" type="s">
+      <default>'codex'</default>
+      <summary>Legacy default provider.</summary>
+      <description>Kept for migration from the previous extension skeleton.</description>
+    </key>
+    <key name="provider-detection-completed" type="b">
+      <default>false</default>
+      <summary>Provider detection completed.</summary>
+      <description>Tracks whether provider detection has been acknowledged.</description>
+    </key>
+    <key name="enabled-providers" type="as">
+      <default>['codex']</default>
+      <summary>Enabled providers.</summary>
+      <description>Provider ids shown by the GNOME extension.</description>
+    </key>
+    <key name="provider-source-modes" type="a{ss}">
+      <default>@a{ss} {}</default>
+      <summary>Per-provider source modes.</summary>
+      <description>Provider id to auto, web, oauth, cli, or api.</description>
+    </key>
+    <key name="provider-option-toggles" type="a{ss}">
+      <default>@a{ss} {}</default>
+      <summary>Provider option toggles.</summary>
+      <description>Provider id to true or false for generic provider settings rows.</description>
+    </key>
+    <key name="provider-token-labels" type="a{ss}">
+      <default>@a{ss} {}</default>
+      <summary>Provider token labels.</summary>
+      <description>Provider id to manually entered token account label.</description>
+    </key>
+    <key name="codex-active-account" type="s">
+      <default>'default'</default>
+      <summary>Codex active account label.</summary>
+      <description>GNOME-side preference for the Codex account section.</description>
+    </key>
+    <key name="auto-update-enabled" type="b">
+      <default>false</default>
+      <summary>Auto update enabled.</summary>
+      <description>GNOME extension updates are managed outside the extension.</description>
+    </key>
+    <key name="update-channel" type="s">
+      <default>'stable'</default>
+      <summary>Update channel.</summary>
+      <description>Stable or beta.</description>
     </key>
   </schema>
 </schemalist>

@@ -1,443 +1,258 @@
-/* ── Panel indicator ────────────────────────────────────────────── */
-
 .codexbar-panel-box {
-    spacing: 6px;
-    padding: 0 6px;
+    spacing: 5px;
 }
 
-.codexbar-panel-meters {
-    spacing: 4px;
+.codexbar-panel-label {
+    font-weight: 600;
+    font-size: 0.92em;
 }
 
-.codexbar-panel-meter {
-    min-width: 32px;
-    border-radius: 999px;
+.codexbar-panel-critter {
+    spacing: 2px;
+    min-width: 18px;
+    min-height: 18px;
+    padding: 1px;
 }
 
-.codexbar-panel-meter-primary {
-    height: 5px;
+.codexbar-panel-bar {
+    background-color: rgba(128, 128, 128, 0.28);
+    border: 1px solid rgba(128, 128, 128, 0.44);
 }
 
-.codexbar-panel-meter-secondary {
+.codexbar-panel-bar-top,
+.codexbar-panel-bar-bottom {
+    border-radius: 99px;
+}
+
+.codexbar-icon-style-claude .codexbar-panel-bar {
+    border-radius: 1px;
+}
+
+.codexbar-icon-style-warp .codexbar-panel-bar {
+    border-radius: 2px;
+}
+
+.codexbar-panel-bar-fill {
+    border-radius: 99px;
+}
+
+.codexbar-icon-style-claude .codexbar-panel-bar-fill {
+    border-radius: 1px;
+}
+
+.codexbar-panel-blink {
+    background-color: -st-fg-color;
+    opacity: 0.88;
+}
+
+.codexbar-status-overlay {
+    width: 4px;
     height: 4px;
+    border-radius: 99px;
+    background-color: -st-fg-color;
+    margin-left: 14px;
+    margin-top: -5px;
 }
 
-/* ── Dropdown card ─────────────────────────────────────────────── */
+.codexbar-status-major,
+.codexbar-status-critical,
+.codexbar-status-unknown {
+    width: 2px;
+    height: 8px;
+    border-radius: 2px;
+}
 
-.codexbar-card-item {
+.codexbar-menu-item {
     padding: 0;
 }
 
 .codexbar-card {
-    min-width: 340px;
-    padding: 16px 16px 14px 16px;
-    border-radius: 24px;
-    spacing: 14px;
-    background-color: rgba(13, 17, 23, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.codexbar-card-theme-codex {
-    border-color: rgba(116, 200, 255, 0.20);
-}
-
-.codexbar-card-theme-claude {
-    border-color: rgba(255, 180, 103, 0.20);
-}
-
-.codexbar-card-theme-error {
-    background-color: rgba(24, 17, 20, 0.98);
-    border-color: rgba(255, 117, 117, 0.22);
-}
-
-/* ── Header ────────────────────────────────────────────────────── */
-
-.codexbar-card-header {
-    spacing: 4px;
-}
-
-.codexbar-card-header-top {
-    spacing: 14px;
-}
-
-.codexbar-card-identity-column {
+    min-width: 310px;
+    max-width: 360px;
+    padding: 7px 16px;
     spacing: 6px;
 }
 
-.codexbar-card-title-row {
-    spacing: 10px;
+.codexbar-header {
+    padding-top: 8px;
 }
 
-.codexbar-provider-chip {
-    min-width: 34px;
-    min-height: 34px;
-    padding: 0 11px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    background-color: rgba(255, 255, 255, 0.04);
-}
-
-.codexbar-provider-chip-label {
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    color: rgba(255, 255, 255, 0.94);
-}
-
-.codexbar-provider-chip-theme-codex {
-    background-color: rgba(116, 200, 255, 0.14);
-    border-color: rgba(116, 200, 255, 0.24);
-}
-
-.codexbar-provider-chip-theme-claude {
-    background-color: rgba(255, 180, 103, 0.14);
-    border-color: rgba(255, 180, 103, 0.24);
-}
-
-.codexbar-provider-chip-theme-error {
-    background-color: rgba(255, 117, 117, 0.14);
-    border-color: rgba(255, 117, 117, 0.24);
-}
-
-.codexbar-provider-name {
-    font-size: 22px;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.96);
-}
-
-.codexbar-card-identity {
-    color: rgba(255, 255, 255, 0.84);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.codexbar-card-subtitle {
-    color: rgba(255, 255, 255, 0.54);
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.codexbar-card-hero {
-    font-size: 30px;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    padding-top: 2px;
-}
-
-.codexbar-hero-theme-codex {
-    color: #8ed4ff;
-}
-
-.codexbar-hero-theme-claude {
-    color: #ffc185;
-}
-
-.codexbar-hero-theme-error {
-    color: #ff9c9c;
-}
-
-/* ── Surfaces & dividers ──────────────────────────────────────── */
-
-.codexbar-divider {
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.06);
-}
-
-.codexbar-inline-divider {
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
-.codexbar-section {
-    spacing: 8px;
-}
-
-.codexbar-section-title {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.40);
-}
-
-.codexbar-section-surface {
-    spacing: 6px;
-    padding: 6px;
-    border-radius: 18px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.045);
-}
-
-/* ── Usage section ─────────────────────────────────────────────── */
-
-.codexbar-metric-row {
-    spacing: 8px;
-    padding: 9px 10px 10px 10px;
-    border-radius: 14px;
-    background-color: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-.codexbar-metric-row-theme-codex {
-    background-color: rgba(116, 200, 255, 0.05);
-    border-color: rgba(116, 200, 255, 0.10);
-}
-
-.codexbar-metric-row-theme-claude {
-    background-color: rgba(255, 180, 103, 0.05);
-    border-color: rgba(255, 180, 103, 0.10);
-}
-
-.codexbar-metric-row-theme-error {
-    background-color: rgba(255, 117, 117, 0.06);
-    border-color: rgba(255, 117, 117, 0.10);
-}
-
-.codexbar-metric-top {
-    spacing: 8px;
-}
-
-.codexbar-metric-title {
-    font-size: 13px;
+.codexbar-header-title {
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.03em;
 }
 
-.codexbar-metric-percent {
-    font-size: 13px;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.97);
+.codexbar-header-email {
+    color: rgba(128, 128, 128, 0.9);
+    text-align: right;
 }
 
-.codexbar-metric-detail {
-    font-size: 11px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.48);
+.codexbar-header-subtitle {
+    font-size: 0.88em;
+    color: rgba(128, 128, 128, 0.95);
 }
 
-/* ── Progress bars ─────────────────────────────────────────────── */
+.codexbar-subtitle-error,
+.codexbar-error-body {
+    color: #e01b24;
+}
+
+.codexbar-plan-badge {
+    color: rgba(128, 128, 128, 0.95);
+    padding-left: 8px;
+}
+
+.codexbar-hero-value {
+    font-weight: 700;
+    padding-left: 8px;
+}
+
+.codexbar-section-title,
+.codexbar-metric-title {
+    font-weight: 600;
+}
+
+.codexbar-metric {
+    spacing: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
 
 .codexbar-progress-track {
-    min-width: 248px;
-    height: 8px;
-    border-radius: 999px;
-    background-color: rgba(255, 255, 255, 0.07);
-}
-
-.codexbar-progress-track-thin {
-    height: 5px;
-}
-
-.codexbar-progress-track-ok {
-    background-color: rgba(255, 255, 255, 0.07);
-}
-
-.codexbar-progress-track-error {
-    background-color: rgba(255, 117, 117, 0.14);
+    background-color: rgba(128, 128, 128, 0.22);
+    border-radius: 99px;
 }
 
 .codexbar-progress-fill {
-    border-radius: 999px;
+    border-radius: 99px;
 }
 
-.codexbar-progress-fill-codex {
-    background-color: #78cbff;
+.codexbar-pace-tip {
+    background-color: #33d17a;
+    border-radius: 2px;
 }
 
-.codexbar-progress-fill-claude {
-    background-color: #ffbc78;
+.codexbar-pace-tip.deficit {
+    background-color: #e01b24;
 }
 
-.codexbar-progress-fill-error {
-    background-color: #ff9c9c;
+.codexbar-metric-percent,
+.codexbar-detail-left,
+.codexbar-cost-line {
+    font-size: 0.9em;
 }
 
-/* ── Credits section ───────────────────────────────────────────── */
-
-.codexbar-credits-section {
-    spacing: 0;
+.codexbar-secondary,
+.codexbar-note,
+.codexbar-placeholder,
+.codexbar-fact-label,
+.codexbar-fact-value {
+    color: rgba(128, 128, 128, 0.95);
+    font-size: 0.88em;
 }
 
-.codexbar-credits-surface {
+.codexbar-error-banner {
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
+.codexbar-copy-button,
+.codexbar-link-button {
+    border-radius: 6px;
+    padding: 3px 7px;
+}
+
+.codexbar-switcher {
+    min-width: 310px;
+    max-width: 360px;
+    padding: 7px 12px 4px 12px;
     spacing: 2px;
 }
 
-.codexbar-credits-header {
-    spacing: 8px;
-    padding: 8px 10px 0 10px;
+.codexbar-switcher-row {
+    spacing: 2px;
 }
 
-.codexbar-credits-value {
-    font-size: 18px;
+.codexbar-switcher-button {
+    border-radius: 6px;
+    padding: 4px 7px;
+    min-height: 30px;
+    color: rgba(128, 128, 128, 0.95);
+}
+
+.codexbar-switcher-button:hover {
+    background-color: rgba(128, 128, 128, 0.12);
+}
+
+.codexbar-switcher-button.selected {
+    color: white;
+}
+
+.codexbar-switcher-content {
+    spacing: 4px;
+}
+
+.codexbar-switcher-title {
+    font-size: 0.86em;
+    font-weight: 600;
+}
+
+.codexbar-provider-badge,
+.codexbar-switcher-overview-badge {
+    min-width: 18px;
+    min-height: 18px;
+    border-radius: 5px;
+    font-size: 0.66em;
     font-weight: 800;
+    text-align: center;
+    padding: 1px 3px;
 }
 
-.codexbar-credits-theme-codex {
-    color: #8ed4ff;
+.codexbar-provider-badge-small,
+.codexbar-switcher-overview-badge {
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 4px;
+    font-size: 0.58em;
 }
 
-.codexbar-credits-theme-claude {
-    color: #ffc185;
+.codexbar-switcher-overview-badge {
+    background-color: rgba(128, 128, 128, 0.28);
+    color: -st-fg-color;
 }
 
-.codexbar-credits-theme-error {
-    color: #ff9c9c;
+.codexbar-weekly-track {
+    background-color: rgba(128, 128, 128, 0.22);
+    border-radius: 99px;
+    margin-top: 2px;
 }
 
-.codexbar-credits-hint {
-    font-size: 10px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.48);
-    padding: 0 10px 8px 10px;
+.codexbar-weekly-fill {
+    border-radius: 99px;
 }
 
-/* ── Facts section ─────────────────────────────────────────────── */
+.codexbar-overview-row {
+    spacing: 7px;
+    padding-top: 3px;
+}
 
-.codexbar-facts-surface {
+.codexbar-overview-name,
+.codexbar-overview-percent {
+    font-weight: 600;
+}
+
+.codexbar-facts {
     spacing: 4px;
 }
 
 .codexbar-fact-row {
-    spacing: 12px;
-    padding: 8px 10px;
-    border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.codexbar-fact-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.42);
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
-}
-
-.codexbar-fact-value {
-    font-size: 12px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.86);
-}
-
-.codexbar-status-none {
-    color: #7ee787;
-}
-
-.codexbar-status-minor {
-    color: #f2cc60;
-}
-
-.codexbar-status-major {
-    color: #ff8e72;
-}
-
-.codexbar-status-critical {
-    color: #ff6b81;
-}
-
-.codexbar-status-maintenance {
-    color: #8ea6ff;
-}
-
-.codexbar-status-unknown {
-    color: #9aa4b2;
-}
-
-/* ── Error banner ──────────────────────────────────────────────── */
-
-.codexbar-error-banner {
-    spacing: 6px;
-    padding: 10px 12px;
-    border-radius: 16px;
-    background-color: rgba(255, 90, 90, 0.09);
-    border: 1px solid rgba(255, 117, 117, 0.18);
-}
-
-.codexbar-error-title {
-    font-size: 10px;
-    font-weight: 800;
-    color: #ff9a9a;
-    text-transform: uppercase;
-    letter-spacing: 0.10em;
-}
-
-.codexbar-error-body {
-    font-size: 12px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.82);
-}
-
-/* ── Action buttons ────────────────────────────────────────────── */
-
-.codexbar-actions-section {
     spacing: 10px;
 }
 
-.codexbar-actions-divider {
-    margin-top: 0;
-    margin-bottom: 2px;
+.codexbar-fact-label {
+    min-width: 68px;
 }
 
-.codexbar-switcher-row {
-    spacing: 6px;
-    padding: 4px;
-    border-radius: 18px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.045);
-}
-
-.codexbar-tools-row {
-    spacing: 8px;
-}
-
-.codexbar-action-button {
-    padding: 9px 12px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background-color: rgba(255, 255, 255, 0.04);
-    font-size: 12px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.88);
-}
-
-.codexbar-action-button-switcher {
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.codexbar-action-button-utility {
-    background-color: rgba(255, 255, 255, 0.035);
-}
-
-.codexbar-action-button:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.12);
-}
-
-.codexbar-action-button-active {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.18);
-    color: rgba(255, 255, 255, 0.98);
-}
-
-.codexbar-action-button-active-codex {
-    background-color: rgba(116, 200, 255, 0.16);
-    border-color: rgba(116, 200, 255, 0.28);
-}
-
-.codexbar-action-button-active-claude {
-    background-color: rgba(255, 180, 103, 0.16);
-    border-color: rgba(255, 180, 103, 0.28);
-}
-
-.codexbar-action-button-active:hover {
-    background-color: rgba(255, 255, 255, 0.14);
-}
-
-.codexbar-action-button-active-codex:hover {
-    background-color: rgba(116, 200, 255, 0.20);
-}
-
-.codexbar-action-button-active-claude:hover {
-    background-color: rgba(255, 180, 103, 0.20);
+.codexbar-fact-value {
+    text-align: right;
 }

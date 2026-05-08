@@ -1,8 +1,8 @@
 {
-  "uuid": "codexbar-gnome",
+  "uuid": "codexbar-gnome@gnome.codexbar",
   "name": "CodexBar",
   "description": "GNOME Shell port of CodexBar's menu bar usage monitor, backed only by the codexbar CLI.",
-  "version": 2,
+  "version": 3,
   "shell-version": ["49", "48", "47", "46", "45"],
   "settings-schema": "org.gnome.shell.extensions.codexbar-gnome"
 }

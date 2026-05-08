@@ -9,7 +9,7 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const UUID = 'codexbar-gnome';
+const UUID = 'codexbar-gnome@gnome.codexbar';
 const DEFAULT_BACKEND_PATH = 'codexbar';
 const DEFAULT_CONFIG_DIR = GLib.build_filenamev([GLib.get_home_dir(), '.codexbar']);
 const MENU_CARD_BASE_WIDTH = 310;

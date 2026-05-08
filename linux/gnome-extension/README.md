@@ -18,7 +18,7 @@ panel display text, and menu actions.
 cd ~/Documents/LinuxCodexBar
 swift build --product CodexBarCLI
 
-EXT="$HOME/.local/share/gnome-shell/extensions/codexbar-gnome"
+EXT="$HOME/.local/share/gnome-shell/extensions/codexbar-gnome@gnome.codexbar"
 rm -rf "$EXT"
 mkdir -p "$EXT"
 cp -a linux/gnome-extension/. "$EXT"/
@@ -28,7 +28,7 @@ gsettings --schemadir "$EXT/schemas" set \
   org.gnome.shell.extensions.codexbar-gnome backend-path \
   "$HOME/Documents/LinuxCodexBar/.build/debug/CodexBarCLI"
 
-gnome-extensions enable codexbar-gnome
+gnome-extensions enable codexbar-gnome@gnome.codexbar
 ```
 
 On Wayland, log out and back in after first install so GNOME Shell discovers the new UUID.

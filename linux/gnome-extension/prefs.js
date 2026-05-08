@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const UUID = 'codexbar-gnome';
+const UUID = 'codexbar-gnome@gnome.codexbar';
 const AUTOSTART_FILE = GLib.build_filenamev([GLib.get_user_config_dir(), 'autostart', 'codexbar-gnome.desktop']);
 const PROVIDERS = [
     ['codex', 'Codex', true],

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema id="org.gnome.shell.extensions.codexbar-gnome" path="/org/gnome/shell/extensions/codexbar-gnome/">
+  <schema id="org.gnome.shell.extensions.linuxcodexbar" path="/org/gnome/shell/extensions/linuxcodexbar/">
     <key name="backend-path" type="s">
       <default>''</default>
       <summary>Path to the codexbar CLI executable.</summary>

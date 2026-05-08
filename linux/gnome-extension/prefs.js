@@ -5,8 +5,8 @@ import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const UUID = 'codexbar-gnome@gnome.codexbar';
-const AUTOSTART_FILE = GLib.build_filenamev([GLib.get_user_config_dir(), 'autostart', 'codexbar-gnome.desktop']);
+const UUID = 'linuxcodexbar';
+const AUTOSTART_FILE = GLib.build_filenamev([GLib.get_user_config_dir(), 'autostart', 'linuxcodexbar.desktop']);
 const PROVIDERS = [
     ['codex', 'Codex', true],
     ['claude', 'Claude', false],
@@ -250,7 +250,7 @@ function updateAutostart(enabled) {
     const contents = [
         '[Desktop Entry]',
         'Type=Application',
-        'Name=CodexBar GNOME Extension',
+        'Name=LinuxCodexBar GNOME Extension',
         `Exec=gnome-extensions enable ${UUID}`,
         'X-GNOME-Autostart-enabled=true',
         'NoDisplay=true',
@@ -278,7 +278,7 @@ function runCommand(argv) {
 export default class CodexBarPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         this._settings = this.getSettings();
-        window.set_title('CodexBar');
+        window.set_title('LinuxCodexBar');
         window.set_default_size(840, 660);
 
         this._generalPage(window);
@@ -679,7 +679,7 @@ export default class CodexBarPreferences extends ExtensionPreferences {
         const errors = new Adw.PreferencesGroup({title: 'Error Simulation'});
         addEntry(errors, this._settings, 'debug-injected-error', 'Fake menu card error', 'Set text to inject a backend error banner into the menu.');
         addButtonRow(errors, 'Test notification', 'Show depleted/restored-style shell notifications.', 'Notify', () => {
-            runCommand(['notify-send', 'CodexBar', 'Session quota test notification']);
+            runCommand(['notify-send', 'LinuxCodexBar', 'Session quota test notification']);
         });
         page.add(errors);
 

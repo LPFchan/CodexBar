@@ -9,7 +9,7 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const UUID = 'codexbar-gnome@gnome.codexbar';
+const UUID = 'linuxcodexbar';
 const DEFAULT_BACKEND_PATH = 'codexbar';
 const DEFAULT_CONFIG_DIR = GLib.build_filenamev([GLib.get_home_dir(), '.codexbar']);
 const MENU_CARD_BASE_WIDTH = 310;
@@ -884,7 +884,7 @@ function launchURI(uri) {
     try {
         Gio.AppInfo.launch_default_for_uri(uri, global.create_app_launch_context(0, -1));
     } catch (error) {
-        Main.notify('CodexBar', `Could not open ${uri}: ${error.message}`);
+        Main.notify('LinuxCodexBar', `Could not open ${uri}: ${error.message}`);
     }
 }
 
@@ -910,7 +910,7 @@ function menuItemWithActor(actor, reactive = false) {
 const CodexBarIndicator = GObject.registerClass(
 class CodexBarIndicator extends PanelMenu.Button {
     _init(extension) {
-        super._init(0.0, 'CodexBar');
+        super._init(0.0, 'LinuxCodexBar');
         this._extension = extension;
         this._settings = extension.getSettings();
         this._payload = [];
@@ -1872,7 +1872,7 @@ class CodexBarIndicator extends PanelMenu.Button {
         if (model)
             this._addAction('Open Terminal', () => this._openTerminal(model.provider));
         this._addAction('Settings', () => this._openPreferences());
-        this._addAction('About', () => Main.notify('CodexBar', 'May your tokens never run out—keep agent limits in view.'));
+        this._addAction('About', () => Main.notify('LinuxCodexBar', 'May your tokens never run out—keep agent limits in view.'));
     }
 
     _addAction(label, callback) {
@@ -1884,7 +1884,7 @@ class CodexBarIndicator extends PanelMenu.Button {
     _runLogin(provider) {
         const backend = this._resolveBackendPath();
         if (!backend) {
-            Main.notify('CodexBar', 'codexbar CLI not found.');
+            Main.notify('LinuxCodexBar', 'codexbar CLI not found.');
             return;
         }
         try {
@@ -1912,14 +1912,14 @@ class CodexBarIndicator extends PanelMenu.Button {
                 continue;
             }
         }
-        Main.notify('CodexBar', 'No supported terminal launcher found.');
+        Main.notify('LinuxCodexBar', 'No supported terminal launcher found.');
     }
 
     _openPreferences() {
         try {
             Gio.Subprocess.new(['gnome-extensions', 'prefs', UUID], Gio.SubprocessFlags.NONE);
         } catch (error) {
-            Main.notify('CodexBar', `Could not open preferences: ${error.message}`);
+            Main.notify('LinuxCodexBar', `Could not open preferences: ${error.message}`);
         }
     }
 

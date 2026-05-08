@@ -1,4 +1,4 @@
-# CodexBar GNOME Extension
+# LinuxCodexBar GNOME Extension
 
 This directory is a GNOME Shell port of the upstream CodexBar macOS menu bar UI.
 
@@ -18,17 +18,17 @@ panel display text, and menu actions.
 cd ~/Documents/LinuxCodexBar
 swift build --product CodexBarCLI
 
-EXT="$HOME/.local/share/gnome-shell/extensions/codexbar-gnome@gnome.codexbar"
+EXT="$HOME/.local/share/gnome-shell/extensions/linuxcodexbar"
 rm -rf "$EXT"
 mkdir -p "$EXT"
 cp -a linux/gnome-extension/. "$EXT"/
 glib-compile-schemas "$EXT/schemas"
 
 gsettings --schemadir "$EXT/schemas" set \
-  org.gnome.shell.extensions.codexbar-gnome backend-path \
+  org.gnome.shell.extensions.linuxcodexbar backend-path \
   "$HOME/Documents/LinuxCodexBar/.build/debug/CodexBarCLI"
 
-gnome-extensions enable codexbar-gnome@gnome.codexbar
+gnome-extensions enable linuxcodexbar
 ```
 
 On Wayland, log out and back in after first install so GNOME Shell discovers the new UUID.
